@@ -26,13 +26,17 @@
                 <th></th>
                 <th scope="col">STT</th>
                 <th scope="col">
-                  Tên khóa học 
-                  <a class="ml-1" href="?_sort&column=name&type=desc">
-                    {{_sort.type}}
-                  </a>
+                    Tên khóa học 
+                    {{{sortable 'name' _sort}}}
                 </th>
-                <th scope="col"> Yêu cầu trình độ</th>
-                <th scope="col" colspan="2">Thời gian tạo</th>
+                <th scope="col"> 
+                    Yêu cầu trình độ
+                    {{{sortable 'level' _sort}}}
+                  </th>
+                <th scope="col" colspan="2">
+                    Thời gian tạo
+                    {{{sortable 'createAt' _sort}}}
+                </th>
             </tr>
         </thead>
         <tbody>
@@ -84,8 +88,6 @@
     </div>
   </div>
 </div>
-
-
 
 
 {{!-- Delete hidden form --}}
@@ -140,8 +142,3 @@
         }
     });
 </script>
-
-
-
-
-
