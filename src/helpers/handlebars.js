@@ -2,12 +2,12 @@ const Handlebars = require("handlebars");
 
 module.exports = {
   sum: (a, b) => a + b,
-  sortable: (field, sort = {}) => {
+  sortable: (field, sort) => {
     const sortType = field === sort.column ? sort.type : "default";
     const icons = {
-      default: "fa-solid fa-sort",
-      asc: "fa-regular fa-sort-up",
-      desc: "fa-regular fa-sort-down",
+      default: "bi bi-arrows-vertical",
+      asc: "bi bi-sort-down",
+      desc: "bi bi-sort-up",
     };
 
     const types = {

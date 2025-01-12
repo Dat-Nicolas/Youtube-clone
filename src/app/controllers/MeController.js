@@ -8,7 +8,7 @@ class MeController {
       Course.find({}).sort({
         [req.query.column || "name"]: req.query.type === "desc" ? -1 : 1,
       }),
-      Course.countDocumentsDeleted(),
+      Course.countDocumentsDeleted()
     ])
       .then(([courses, deletedCount]) => {
         console.log({ courses, deletedCount });
@@ -23,13 +23,17 @@ class MeController {
   // [GET] /me/trash/courses
   trashCourses(req, res, next) {
     Course.findDeleted({})
-      .then((courses) =>
+      .sort({
+        [req.query.column || "name"]: req.query.type === "desc" ? -1 : 1,
+      })
+      .then((courses) => {
         res.render("me/trash-courses", {
           courses: mutipleMongooseToObject(courses),
-        })
-      )
+        });
+      })
       .catch(next);
   }
+  
 }
 
 module.exports = new MeController();

@@ -20,9 +20,18 @@
       <tr>
         <th></th>
         <th scope="col">STT</th>
-        <th scope="col">Tên nội dung</th>
-        <th scope="col">Yêu cầu</th>
-        <th scope="col" colspan="2">Thời gian xóa</th>
+        <th scope="col">
+          Tên nội dung
+           {{{sortable 'name' _sort}}}
+          </th>
+        <th scope="col" style="width: 8rem;">
+          Trình độ
+           {{{sortable 'level' _sort}}}
+          </th>
+        <th scope="col" colspan="2">
+          Thời gian xóa
+           {{{sortable 'deletedAt' _sort}}}
+          </th>
       </tr>
     </thead>
     <tbody>
@@ -93,19 +102,19 @@
     const checkAllSubmitBtn = $('.check-all-submit-btn');
     const restoreBtn = $('.btn-restore');
 
-    // Xử lý khi mở modal xóa
+    // open modal when deletedelete
     $('#delete-course-modal').on('show.bs.modal', function (e) {
         const button = $(e.relatedTarget);
         courseId = button.data('id');
     });
 
-    // Xóa vĩnh viễn
+    // complete delete
     btnDeleteCourse.onclick = function () {
         deleteForm.action = '/courses/' + courseId + '/force?_method=DELETE';
         deleteForm.submit();
     };
 
-    // Khôi phục nội dung
+    // restore course item 
     restoreBtn.click(function (e) {
         e.preventDefault();
         const courseId = $(this).data('id');
@@ -113,21 +122,21 @@
         restoreForm.submit();
     });
 
-    // Checkbox "Chọn tất cả"
+    // checkbox all changed
     checkboxAll.change(function () {
         const isCheckedAll = $(this).prop('checked');
         courseItemCheckbox.prop('checked', isCheckedAll);
         renderCheckAllSubmitBtn();
     });
 
-    // Checkbox từng mục
+    //course item checkbox changed
     courseItemCheckbox.change(function () {
         const isCheckedAll = courseItemCheckbox.length === $('input[name="courseIds[]"]:checked').length;
         checkboxAll.prop('checked', isCheckedAll);
         renderCheckAllSubmitBtn();
     });
 
-    // Render trạng thái nút "Thực hiện"
+    //re-render check all submit btn
     function renderCheckAllSubmitBtn() {
         const checkedCount = $('input[name="courseIds[]"]:checked').length;
         checkAllSubmitBtn.prop('disabled', checkedCount === 0);

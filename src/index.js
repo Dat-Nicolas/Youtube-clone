@@ -4,7 +4,7 @@ const morgan = require("morgan");
 const methodOverride = require("method-override");
 const handlebars = require("express-handlebars");
 
-// const sortMiddleware = require("./app/middlewares/SortMiddleware");
+const SortMiddleware = require("./app/middlewares/SortMiddleware");
 
 const route = require("./routes");
 const db = require("./config/db");
@@ -26,6 +26,8 @@ app.use(
 app.use(express.json());
 
 app.use(methodOverride("_method"));
+
+app.use(SortMiddleware)
 
 // HTTP logger
 app.use(morgan("combined"));
